@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin: 200px auto;
+            width: 500px;
+
+            position: relative;
+        }
+        img{
+            width: 200px;
+            height: 100px;
+        }
+        .time{
+            position: absolute;
+            left: 200px;
+            top: 12px;
+            font-size: 24px;
+            margin-left: 10px;
+            
+        }
+    </style>
+</head>
+<body bgColor=#ffffff onload="chgCol(); pingpong();warning();">
+    <div class="container">
+        <img src="img.png">
+        <p class="time"></p>
+    </div>
+    <script>
+          var p=document.getElementsByClassName("time")[0];
+          function daojishi(stop){
+             var nowtime=new Date();
+             var stoptime=new Date(stop);
+             var mistime=stoptime.getTime()-nowtime.getTime();
+             var days=Math.floor(mistime/1000/60/60/24);
+             var hours=Math.floor(mistime/1000/60/60%24);
+             var minutes=Math.floor(mistime/1000/60%60);
+             var seconds=Math.floor(mistime/1000%60);
+             var mis=days+"天"+hours+"时"+minutes+"分"+seconds+"秒";
+             return mis;
+          }
+          setInterval(function(){
+              p.innerHTML=daojishi("2021,9,4")
+          },1000)
+          function misstime(stop){
+             var nowtime=new Date();
+             var stoptime=new Date(stop);
+             var mistime=stoptime.getTime()-nowtime.getTime();
+            return mistime;
+          }
+          function warning()
+          {
+            var mistime=misstime("2021,9,4");
+            if(mistime<864000000){
+                alert("醒醒，还有十天就开学了！！！");
+                
+            }
+            
+          }
+          //变换背景颜色
+          var pos=10;
+          function initArray(){
+              this.length=initArray.arguments.length;
+              for(var i=0;i<this.length;i++){this[i]=initArray.arguments[i];}}
+          var col=new initArray("4b","5b","8b","8b");
+          col[0]="aquamarine";col[1]="coral";col[2]="orange";col[3]="cornflowerblue";
+          col[4]="greenyellow";col[5]="lime";col[6]="turquoise";col[7]="coral";
+          col[8]="blueviolet";col[9]="violet";
+          function chgCol(){pos++;if(pos<0||pos>9){pos=0;}document.bgColor=col[pos];
+              setTimeout("chgCol()",1000);/*这里你可以改变时间间隔.*/
+          }
+          var yourwords="不断变化背景色彩";var buffer1=" ";
+          var buffer2=" ";
+          var message1=buffer1+yourwords+buffer2;
+          var dir="left";var speed=150;function pingpong(){
+          if(dir=="left")
+          {message2=message1.substring(2,message1.length)+" ";
+          window.status=message2;setTimeout("pingpong();",speed);message1=message2;
+          if(message1.substring(0,1)=="*")dir="right";}
+          else{message2=" "+message1.substring(0,message1.length-2);
+          window.status=message2;setTimeout("pingpong();",speed);
+          message1=message2;if(message1.substring(message1.length-1,message1.length)=="*")dir="left";}}
+    </script>
+</body>
+</html>
